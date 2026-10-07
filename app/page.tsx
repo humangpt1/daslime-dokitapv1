@@ -4,14 +4,13 @@ import Link from "next/link";
 import { PatientForm } from "@/components/forms/PatientForm";
 import { PasskeyModal } from "@/components/PasskeyModal";
 
-
-
 interface SearchParamProps {
-  searchParams?: { [key: string]: string | string[] | undefined };
+  searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
 }
 
-const Home = ({ searchParams }: SearchParamProps) => {
-  const isAdmin = searchParams?.admin === "true";
+const Home = async ({ searchParams }: SearchParamProps) => {
+  const params = await searchParams;
+  const isAdmin = params?.admin === "true";
 
   return (
     <div className="relative flex min-h-screen overflow-hidden bg-slate-950">
@@ -63,24 +62,24 @@ const Home = ({ searchParams }: SearchParamProps) => {
             <p className="order-2 text-xs text-slate-500 sm:order-1 sm:text-sm">
               © 2025 Dokitap
             </p>
-            <Link 
-              href="/?admin=true" 
+            <Link
+              href="/?admin=true"
               className="order-1 inline-flex items-center space-x-2 rounded-lg bg-emerald-600 px-4 py-2.5 text-sm font-medium text-white transition-all duration-200 hover:bg-emerald-700 hover:shadow-lg hover:shadow-emerald-500/25 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 focus:ring-offset-slate-950 sm:order-2"
               role="button"
               aria-label="Access admin panel"
             >
-              <svg 
-                className="size-4" 
-                fill="none" 
-                stroke="currentColor" 
+              <svg
+                className="size-4"
+                fill="none"
+                stroke="currentColor"
                 viewBox="0 0 24 24"
                 aria-hidden="true"
               >
-                <path 
-                  strokeLinecap="round" 
-                  strokeLinejoin="round" 
-                  strokeWidth={2} 
-                  d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" 
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
                 />
               </svg>
               <span>Admin</span>
@@ -100,7 +99,7 @@ const Home = ({ searchParams }: SearchParamProps) => {
             sizes="(max-width: 1024px) 0vw, 50vw"
             priority
           />
-          
+
           {/* Professional overlay */}
           <div className="absolute inset-0 bg-gradient-to-br from-slate-950/60 via-slate-950/20 to-transparent" />
           <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 to-transparent" />
